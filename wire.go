@@ -4,8 +4,14 @@ package main
 
 import "github.com/google/wire"
 
-func InitMission(p string, m MonsterParam) (Mission, error) {
-	wire.Build(NewMonster, NewPlayer, NewMission)
+func InitEndingA(name string) EndingA {
+	wire.Build(NewMonster, NewPlayer, NewEndingA)
 
-	return Mission{}, nil
+	return EndingA{}
+}
+
+func InitEndingB(name string) EndingB {
+	wire.Build(NewMonster, NewPlayer, NewEndingB)
+
+	return EndingB{}
 }

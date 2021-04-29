@@ -1,63 +1,70 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"time"
 )
-
-type PlayerParam string
-type MonsterParam string
 
 type Monster struct {
 	Name string
 }
 
-func NewMonster(name MonsterParam) Monster {
-	return Monster{Name: string(name)}
+func NewMonster(name string) Monster {
+	return Monster{Name: name}
 }
 
 type Player struct {
 	Name string
 }
 
-func NewPlayer(name string) (Player, error) {
-	if time.Now().Unix()%2 == 0 {
-		return Player{}, errors.New("player dead")
-	}
-
-	return Player{Name: name}, nil
+func NewPlayer(name string) Player {
+	return Player{Name: name}
 }
 
-
-type Mission struct {
-	Player  Player
+type EndingA struct {
+	Player Player
 	Monster Monster
 }
 
-func NewMission(p Player, m Monster) Mission {
-	return Mission{p, m}
+func NewEndingA(p Player, m Monster) EndingA {
+	return EndingA{p, m}
 }
 
-func (m Mission) Start() {
-	fmt.Printf("%s defeats %s, world peace!\n", m.Player.Name, m.Monster.Name)
+func (p EndingA) Appear() {
+	fmt.Printf("%s defeats %s, world peace!\n", p.Player.Name, p.Monster.Name)
 }
 
-// 使用wire前
+type EndingB struct {
+	Player Player
+	Monster Monster
+}
+
+func NewEndingB(p Player, m Monster) EndingB {
+	return EndingB{p, m}
+}
+
+func (p EndingB) Appear() {
+	fmt.Printf(
+		"%s defeats %s, but became monster, world darker!\n",
+		p.Player.Name,
+		p.Monster.Name,
+	)
+}
+
 func main() {
-	var playName string = "瓜皮"
-	var monsterName MonsterParam = "里皮"
-
-	//player, _ := NewPlayer(playName)
+	// 使用wire前
+	//var playerName = "奥特曼"
+	//var monsterName = "哥斯拉"
+	//
+	//player := NewPlayer(playerName)
 	//monster := NewMonster(monsterName)
 	//
-	//mission := NewMission(player, monster)
-	mission, err := InitMission(playName, monsterName)
-	if err != nil {
-		fmt.Printf("错误: %s", err.Error())
+	//ending := NewEndingA(player, monster)
+	//ending.Appear()
 
-		panic("执行出错")
-	}
+	// 使用wire后
+	endingA := InitEndingA("奥特曼")
+	endingA.Appear()
 
-	mission.Start()
+	endingB := InitEndingB("哥斯拉")
+	endingB.Appear()
 }
