@@ -2,20 +2,23 @@ package main
 
 import "fmt"
 
+type PlayerParam string
+type MonsterParam string
+
 type Monster struct {
 	Name string
 }
 
-func NewMonster() Monster {
-	return Monster{Name: "kitty"}
+func NewMonster(name MonsterParam) Monster {
+	return Monster{Name: string(name)}
 }
 
 type Player struct {
 	Name string
 }
 
-func NewPlayer(name string) Player {
-	return Player{Name: name}
+func NewPlayer(name PlayerParam) Player {
+	return Player{Name: string(name)}
 }
 
 
@@ -34,7 +37,13 @@ func (m Mission) Start() {
 
 // 使用wire前
 func main() {
-	mission := InitMission("瓜皮")
+	var playName PlayerParam = "瓜皮"
+	var monsterName MonsterParam = "里皮"
+
+	player := NewPlayer(playName)
+	monster := NewMonster(monsterName)
+
+	mission := NewMission(player, monster)
 
 	mission.Start()
 }
