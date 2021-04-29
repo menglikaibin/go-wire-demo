@@ -55,16 +55,16 @@ func main() {
 	//var playerName = "奥特曼"
 	//var monsterName = "哥斯拉"
 	//
-	//player := NewPlayer(playerName)
-	//monster := NewMonster(monsterName)
-	//
-	//ending := NewEndingA(player, monster)
-	//ending.Appear()
+	player := NewPlayer("奥特曼")
+	monster := NewMonster("哥斯拉")
+
+	ending := NewEndingA(player, monster)
+	ending.Appear()
 
 	// 使用wire后
-	endingA := InitEndingA("奥特曼")
-	endingA.Appear()
-
-	endingB := InitEndingB("哥斯拉")
-	endingB.Appear()
+	//endingA := InitEndingA("奥特曼")
+	//endingA.Appear()
+	//
+	//endingB := InitEndingB("哥斯拉")
+	//endingB.Appear()
 }
