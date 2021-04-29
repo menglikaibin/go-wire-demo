@@ -7,9 +7,12 @@ package main
 
 // Injectors from wire.go:
 
-func InitMission(p PlayerParam, m MonsterParam) Mission {
-	player := NewPlayer(p)
+func InitMission(p string, m MonsterParam) (Mission, error) {
+	player, err := NewPlayer(p)
+	if err != nil {
+		return Mission{}, err
+	}
 	monster := NewMonster(m)
 	mission := NewMission(player, monster)
-	return mission
+	return mission, nil
 }

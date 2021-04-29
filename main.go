@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+	"time"
+)
 
 type PlayerParam string
 type MonsterParam string
@@ -17,8 +21,12 @@ type Player struct {
 	Name string
 }
 
-func NewPlayer(name PlayerParam) Player {
-	return Player{Name: string(name)}
+func NewPlayer(name string) (Player, error) {
+	if time.Now().Unix()%2 == 0 {
+		return Player{}, errors.New("player dead")
+	}
+
+	return Player{Name: name}, nil
 }
 
 
@@ -37,10 +45,10 @@ func (m Mission) Start() {
 
 // 使用wire前
 func main() {
-	var playName PlayerParam = "瓜皮"
+	var playName string = "瓜皮"
 	var monsterName MonsterParam = "里皮"
 
-	player := NewPlayer(playName)
+	player, _ := NewPlayer(playName)
 	monster := NewMonster(monsterName)
 
 	mission := NewMission(player, monster)
