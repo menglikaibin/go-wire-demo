@@ -48,10 +48,16 @@ func main() {
 	var playName string = "瓜皮"
 	var monsterName MonsterParam = "里皮"
 
-	player, _ := NewPlayer(playName)
-	monster := NewMonster(monsterName)
+	//player, _ := NewPlayer(playName)
+	//monster := NewMonster(monsterName)
+	//
+	//mission := NewMission(player, monster)
+	mission, err := InitMission(playName, monsterName)
+	if err != nil {
+		fmt.Printf("错误: %s", err.Error())
 
-	mission := NewMission(player, monster)
+		panic("执行出错")
+	}
 
 	mission.Start()
 }
